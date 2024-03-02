@@ -1,5 +1,9 @@
 from util import *
 
+"""
+一括保存用
+"""
+
 local_data = read_local_data('./combined_data.json')
 for i in local_data:
     # mediaキーがあるか確認
