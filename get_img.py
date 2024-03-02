@@ -14,7 +14,6 @@ for i in new_data:
         for flag, m in enumerate(i['media']):
             url = m['item']['mediaUrl']
             id = i['id'] + '_' + str(flag)
-            print(url, id)
             save_image(url, id)
 
 print(f'save data length: {len(local_data)}')
