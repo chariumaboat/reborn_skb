@@ -11,6 +11,13 @@ NO_IMG_HASH = '5d6737777450ade1eae0106458ddaea4'
 DISCORD_WEBHOOK_URL = os.environ['DISCORD_WEBHOOK_URL']
 
 
+def create_post_text(json):
+    user_id = json['userId']
+    id = json['id']
+    text = json['displayText']
+    return f'{text}\nhttps://twitter.com/{user_id}/status/{id}'
+
+
 def get_random_media_key():
     # combined_data.jsonを読み込んでランダムにmediaキーを取得する
     # んでファイルパスだけ返す
@@ -19,7 +26,8 @@ def get_random_media_key():
     raw_json = random.choice(data)
     id = raw_json['id']
     length = len(raw_json['media'])
-    return [f'./img/{id}_{i}.png' for i in range(length)]
+    text = create_post_text(raw_json)
+    return [f'./img/{id}_{i}.png' for i in range(length)], text
 
 
 def get_md5(path):
@@ -34,18 +42,14 @@ def port_discord(path, text):
         discord.post(content=text, file={"attachment": f})
 
 
-# 取得したリストが空ではない
-# 画像のmd5が5d6737777450ade1eae0106458ddaea4ではない場合ループを抜ける
-
-# TODO
-# リファクタリングする、jsonから投稿文も作成する
+# TODO リファクタリングする、jsonから投稿文も作成する
 while True:
-    media_key = get_random_media_key()
+    media_key, text = get_random_media_key()
     if media_key:
         for i in media_key:
             h = get_md5(i)
             if h != NO_IMG_HASH:
                 print(media_key)
                 for i in media_key:
-                    port_discord(i, 'test')
+                    port_discord(i, text)
                 sys.exit()
