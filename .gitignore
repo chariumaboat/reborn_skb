@@ -1,3 +1,5 @@
 venv/
 img/
 __pycache__/
+*json
+*log
