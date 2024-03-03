@@ -14,8 +14,7 @@ DISCORD_WEBHOOK_URL = os.environ['DISCORD_WEBHOOK_URL']
 def create_post_text(json):
     user_id = json['userId']
     id = json['id']
-    text = json['displayText']
-    return f'{text}\nhttps://twitter.com/{user_id}/status/{id}'
+    return f'https://twitter.com/{user_id}/status/{id}'
 
 
 def get_random_media_key():
