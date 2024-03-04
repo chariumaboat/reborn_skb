@@ -6,9 +6,19 @@ import hashlib
 import sys
 import os
 from discordwebhook import Discord
+from PIL import Image
 
 NO_IMG_HASH = '5d6737777450ade1eae0106458ddaea4'
 DISCORD_WEBHOOK_URL = os.environ['DISCORD_WEBHOOK_URL']
+
+
+def is_png_corrupted(file_path):
+    try:
+        img = Image.open(file_path)
+        img.verify()
+        return True  # PNGデータは正常です
+    except (IOError, SyntaxError):
+        return False  # PNGデータが壊れています
 
 
 def create_post_text(json):
@@ -47,7 +57,7 @@ while True:
     if media_key:
         for i in media_key:
             h = get_md5(i)
-            if h != NO_IMG_HASH:
+            if h != NO_IMG_HASH and is_png_corrupted(i):
                 print(media_key)
                 for i in media_key:
                     port_discord(i, text)
