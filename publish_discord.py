@@ -45,10 +45,15 @@ def get_md5(path):
     return hashlib.md5(data).hexdigest()
 
 
-def port_discord(path, text):
+def port_discord_with_img(path, text):
     discord = Discord(url=DISCORD_WEBHOOK_URL)
     with open(path, 'rb') as f:
         discord.post(content=text, file={"attachment": f})
+
+
+def port_discord(text):
+    discord = Discord(url=DISCORD_WEBHOOK_URL)
+    discord.post(content=text)
 
 
 # TODO リファクタリングする、jsonから投稿文も作成する
@@ -59,6 +64,7 @@ while True:
             h = get_md5(i)
             if h != NO_IMG_HASH and is_png_corrupted(i):
                 print(media_key)
+                port_discord(text)
                 for i in media_key:
-                    port_discord(i, text)
+                    port_discord_with_img(i, '')
                 sys.exit()
