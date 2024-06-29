@@ -36,6 +36,7 @@ jobs:
         continue-on-error: true
         run: |
           ls -l
+          mv ./data.json/data.json ./data.json
           python get_img.py && python publish_discord.py
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
