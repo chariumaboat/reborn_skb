@@ -35,10 +35,6 @@ jobs:
       - name: schedule_evil_tweet
         continue-on-error: true
         run: |
-          ls -l
-          ls -l ./data.json
-          mv ./data.json/data.json ./tmp.json && rm -rf /data.json
-          mv ./tmp.json ./data.json
           python get_img.py && python publish_discord.py
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}

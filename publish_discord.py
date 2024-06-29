@@ -28,7 +28,7 @@ def create_post_text(json):
 
 
 def get_random_media_key():
-    with open('data.json', 'r') as f:
+    with open('./data.json/data.json', 'r') as f:
         data = json.load(f)
     raw_json = random.choice(data)
     id = raw_json['id']

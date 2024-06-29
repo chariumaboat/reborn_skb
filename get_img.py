@@ -1,7 +1,7 @@
 from util import *
 
 try:
-    local_data = read_local_data('./data.json')
+    local_data = read_local_data('././data.json/data.json')
 except:
     local_data = []
 print(f'local data length: {len(local_data)}')
