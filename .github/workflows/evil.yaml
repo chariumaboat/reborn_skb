@@ -1,9 +1,8 @@
 name: evil
 on:
-  push:
-  # schedule:
-  #   - cron: "0,30 * * * *"
-  # workflow_dispatch:
+  schedule:
+    - cron: "0,30 * * * *"
+  workflow_dispatch:
 
 jobs:
   devil:
@@ -37,6 +36,7 @@ jobs:
         if: github.event_name != 'workflow_dispatch'
         continue-on-error: true
         run: |
+          ls -l
           python get_img.py && python publish_discord.py
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
