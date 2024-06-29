@@ -38,6 +38,8 @@ jobs:
         continue-on-error: true
         run: |
           python get_img.py && python publish_discord.py
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - uses: actions/upload-artifact@v4
         with:
