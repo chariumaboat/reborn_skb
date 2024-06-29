@@ -1,0 +1,47 @@
+name: evil
+on:
+  push:
+  # schedule:
+  #   - cron: "0,30 * * * *"
+  # workflow_dispatch:
+
+jobs:
+  devil:
+    name: evil
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: "pip"
+
+      - name: dl json
+        uses: dawidd6/action-download-artifact@v5
+        continue-on-error: true
+        with:
+          branch: main
+          workflow: evil.yaml
+          path: ./
+
+      - name: pip install
+        run: pip install -r requirements.txt
+
+      - name: schedule_evil_tweet
+        if: github.event_name != 'workflow_dispatch'
+        continue-on-error: true
+        run: |
+          python get_img.py && python publish_discord.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: data.json
+          path: data.json
+          if-no-files-found: error
+          retention-days: 90

@@ -1,6 +1,9 @@
 from util import *
 
-local_data = read_local_data('./combined_data.json')
+try:
+    local_data = read_local_data('./data.json')
+except:
+    local_data = []
 print(f'local data length: {len(local_data)}')
 new_data = get_new_data()
 saved_ids = [i['id'] for i in local_data]

@@ -28,9 +28,7 @@ def create_post_text(json):
 
 
 def get_random_media_key():
-    # combined_data.jsonを読み込んでランダムにmediaキーを取得する
-    # んでファイルパスだけ返す
-    with open('combined_data.json', 'r') as f:
+    with open('data.json', 'r') as f:
         data = json.load(f)
     raw_json = random.choice(data)
     id = raw_json['id']

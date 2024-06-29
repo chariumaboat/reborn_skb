@@ -3,3 +3,4 @@ img/
 __pycache__/
 *json
 *log
+__pycache__/

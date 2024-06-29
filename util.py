@@ -24,7 +24,7 @@ def merge_data(data, local_data):
 
 
 def save_data(data):
-    file_path = "./combined_data.json"
+    file_path = "./data.json"
     with open(file_path, 'w') as file:
         json.dump(data, file, ensure_ascii=False, indent=4)
 
