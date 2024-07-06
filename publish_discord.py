@@ -27,12 +27,18 @@ def create_post_text(json):
     return f'https://twitter.com/{user_id}/status/{id}'
 
 
-def get_random_media_key():
+def get_random_media():
     with open('./data.json/data.json', 'r') as f:
         data = json.load(f)
     raw_json = random.choice(data)
     id = raw_json['id']
     length = len(raw_json['media'])
+    for flag, i in enumerate(raw_json['media']):
+        print(i['item']['mediaUrl'])
+        response = requests.get(i['item']['mediaUrl'])
+        image_data = response.content
+        with open(f'./img/{id}_{flag}.png', "wb") as f:
+            f.write(image_data)
     text = create_post_text(raw_json)
     return [f'./img/{id}_{i}.png' for i in range(length)], text
 
@@ -56,7 +62,7 @@ def port_discord(text):
 
 # TODO リファクタリングする、jsonから投稿文も作成する
 while True:
-    media_key, text = get_random_media_key()
+    media_key, text = get_random_media()
     if media_key:
         for i in media_key:
             h = get_md5(i)
