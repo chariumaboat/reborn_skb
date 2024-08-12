@@ -24,7 +24,7 @@ def is_png_corrupted(file_path):
 def create_post_text(json):
     user_id = json['userId']
     id = json['id']
-    return f'https://twitter.com/{user_id}/status/{id}'
+    return f'https://twitter.com/i/user/{user_id}\nhttps://twitter.com/{user_id}/status/{id}'
 
 
 def get_random_media():
