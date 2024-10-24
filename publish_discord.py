@@ -71,4 +71,5 @@ while True:
                 port_discord(text)
                 for i in media_key:
                     port_discord_with_img(i, '')
+                print('done')
                 sys.exit()
