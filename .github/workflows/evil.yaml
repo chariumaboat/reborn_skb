@@ -1,4 +1,4 @@
-name: evil
+name: evil-1
 on:
   schedule:
     - cron: "0,30 * * * *"
